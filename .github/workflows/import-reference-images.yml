@@ -1,0 +1,39 @@
+name: Import reference images
+
+on:
+  push:
+    paths:
+      - .github/workflows/import-reference-images.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  import-images:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download validated reference images
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p reference_images
+          curl --fail --location --retry 3 'https://th.bing.com/th/id/OIG4._SMEVm.ONLNGBRe5wjMG?pid=ImgGn' --output reference_images/first_visit_shabby_mirror_chamber.jpg
+          curl --fail --location --retry 3 'https://th.bing.com/th/id/OIG2.5oUc8U7MlJke27lTx_Vx?pid=ImgGn' --output reference_images/first_visit_dangerously_hot_glass.jpg
+          curl --fail --location --retry 3 'https://th.bing.com/th/id/OIG3.iGyGbc25ybHwykPG5rcm?pid=ImgGn' --output reference_images/return_wagon_exterior.jpg
+          curl --fail --location --retry 3 'https://th.bing.com/th/id/OIG2.Oo23KfC9V0_ossk68HXK?pid=ImgGn' --output reference_images/return_wagon_door.jpg
+          test "$(wc -c < reference_images/first_visit_shabby_mirror_chamber.jpg)" -eq 513471
+          test "$(wc -c < reference_images/first_visit_dangerously_hot_glass.jpg)" -eq 466216
+          test "$(wc -c < reference_images/return_wagon_exterior.jpg)" -eq 535615
+          test "$(wc -c < reference_images/return_wagon_door.jpg)" -eq 508833
+          file reference_images/*.jpg | grep -c 'JPEG image data' | grep -q '^4$'
+      - name: Commit reference images
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add reference_images/*.jpg
+          git diff --cached --quiet && exit 0
+          git commit -m 'Import Gloamglass reference images'
+          git push
