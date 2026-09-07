@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gloamglass Map Layouts</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <p class="eyebrow">Hall of Mirrors</p>
+      <h1>Gloamglass Map Layouts</h1>
+    </div>
+    <div class="controls" aria-label="Map display controls">
+      <label><input id="gridToggle" type="checkbox" checked> Grid</label>
+      <label><input id="labelToggle" type="checkbox" checked> Notes</label>
+      <label class="zoom-control" for="zoomRange">Zoom <input id="zoomRange" type="range" min="70" max="140" value="100"></label>
+    </div>
+  </header>
+
+  <nav id="mapTabs" class="map-tabs" aria-label="Gloamglass maps"></nav>
+
+  <main>
+    <section class="map-workspace">
+      <header class="map-heading">
+        <div>
+          <p id="mapKind" class="eyebrow"></p>
+          <h2 id="mapTitle"></h2>
+        </div>
+        <div class="map-meta">
+          <span id="mapSize"></span>
+          <span>5 ft squares</span>
+        </div>
+      </header>
+
+      <div id="viewport" class="viewport">
+        <div id="map" class="map" role="img" aria-label="Top-down map layout"></div>
+      </div>
+
+      <footer class="map-footer">
+        <span><i class="cell-key gloam"></i> Gloam clear</span>
+        <span><i class="cell-key circus"></i> Wood/Circus clear</span>
+        <span><i class="cell-key danger"></i> Dangerous terrain</span>
+        <span><i class="cell-key occupied"></i> Object or creature</span>
+      </footer>
+    </section>
+
+    <aside class="brief-panel">
+      <p class="eyebrow">Inkarnate build brief</p>
+      <h2 id="briefTitle"></h2>
+      <section class="inspector-section">
+        <h3>Selected Space</h3>
+        <div id="spaceInspector" class="space-inspector">
+          <strong>Select a grid space</strong>
+          <p>Click any square to inspect its contents and four boundaries.</p>
+        </div>
+      </section>
+      <section class="legend-section">
+        <h3>Map Symbols</h3>
+        <div id="symbolLegend" class="symbol-legend"></div>
+      </section>
+      <section id="referenceSection" class="reference-section">
+        <h3>Visual References</h3>
+        <div id="referenceGallery" class="reference-gallery"></div>
+      </section>
+      <section>
+        <h3>Structure</h3>
+        <ul id="structureList"></ul>
+      </section>
+      <section>
+        <h3>Materials</h3>
+        <ul id="materialList"></ul>
+      </section>
+      <section>
+        <h3>Keep Clear</h3>
+        <ul id="clearList"></ul>
+      </section>
+      <section>
+        <h3>Lighting</h3>
+        <p id="lightingText"></p>
+      </section>
+      <section class="palette-section">
+        <h3>Palette</h3>
+        <div id="palette" class="palette"></div>
+      </section>
+    </aside>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
